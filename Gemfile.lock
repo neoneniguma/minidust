@@ -8,7 +8,10 @@ GEM
   specs:
     byebug (12.0.0)
     minitest (5.25.5)
+    mocha (2.7.1)
+      ruby2_keywords (>= 0.0.5)
     rake (10.5.0)
+    ruby2_keywords (0.0.5)
 
 PLATFORMS
   arm64-darwin-24
@@ -19,6 +22,7 @@ DEPENDENCIES
   byebug
   minidust!
   minitest (~> 5.0)
+  mocha
   rake (~> 10.0)
 
 BUNDLED WITH

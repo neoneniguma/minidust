@@ -9,7 +9,12 @@ module Minidust
     blue:   "\e[34m",
     reset:  "\e[0m"
   }
-  
+
+  def self.enable!
+    start
+    Minitest.after_run { report }
+  end
+
   def self.start
     Coverage.start
   end
@@ -17,7 +22,6 @@ module Minidust
    ROOT_DIR = File.expand_path("../../", __FILE__)  # your project root
 
   def self.report
-    byebug
     result = Coverage.result
 
     puts "\n== Minidust Coverage Report =="
@@ -26,8 +30,8 @@ module Minidust
       # Get relative path from project root
       relative_path = file.start_with?(ROOT_DIR) ? file.sub("#{ROOT_DIR}/", "") : file
 
-      # Only show files in lib/ directory, exclude minidust itself
-      next unless relative_path.start_with?("lib/") && !relative_path.include?("minidust")
+      # Only show files in lib/ directory, exclude 
+      next unless relative_path.start_with?("lib/")
 
       total = coverage.compact.size
       covered = coverage.compact.count { |c| c && c > 0 }

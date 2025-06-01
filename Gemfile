@@ -7,4 +7,5 @@ gemspec
 
 group :development, :test do
   gem "byebug"
+  gem "mocha"
 end

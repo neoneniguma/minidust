@@ -22,7 +22,38 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+🔧 Usage
+1. Add minidust to your test helper
+In your test/test_helper.rb (or wherever your Minitest setup lives), require and enable Minidust:
+
+```ruby
+require "minidust"
+```
+
+Minidust.enable!
+This automatically starts coverage tracking and prints a colorized coverage report after your tests run.
+
+2. Run your tests as usual
+For example:
+
+```bash
+ruby test/hello_world_test.rb
+```
+
+You’ll see a terminal output like:
+
+```bash
+== Minidust Coverage Report ==
+lib/hello_world.rb: 100.0% (6/6)
+```
+
+🔍 What it does
+Tracks which lines in your app were run during each test file
+
+Displays only the relevant files (no gem/library noise)
+
+Outputs a colorized summary at the end of the test
+
 
 ## Development
 

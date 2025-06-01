@@ -1,11 +1,9 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "minidust"
 
+Minidust.enable!
+
+require 'minitest/mock'
+
 require "minitest/autorun"
-
-require "minidust"
-Minidust.start
-
-Minitest.after_run do
-  Minidust.report
-end
+require 'mocha/minitest'
