@@ -2,6 +2,14 @@ require "coverage"
 require "byebug"
 
 module Minidust
+    COLORS = {
+    red:    "\e[31m",
+    green:  "\e[32m",
+    yellow: "\e[33m",
+    blue:   "\e[34m",
+    reset:  "\e[0m"
+  }
+  
   def self.start
     Coverage.start
   end
@@ -24,7 +32,19 @@ module Minidust
       total = coverage.compact.size
       covered = coverage.compact.count { |c| c && c > 0 }
       percent = ((covered.to_f / total) * 100).round(2)
-      puts "#{relative_path}: #{percent}% (#{covered}/#{total})"
+
+      color =
+        if percent >= 90
+          COLORS[:green]
+        elsif percent >= 70
+          COLORS[:yellow]
+        else
+          COLORS[:red]
+        end
+
+
+      puts "#{color}#{file}: #{percent.round(2)}% (#{covered}/#{total})#{COLORS[:reset]}"
+
     end
   end
 end
