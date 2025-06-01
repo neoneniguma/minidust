@@ -1,0 +1,25 @@
+PATH
+  remote: .
+  specs:
+    minidust (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (12.0.0)
+    minitest (5.25.5)
+    rake (10.5.0)
+
+PLATFORMS
+  arm64-darwin-24
+  ruby
+
+DEPENDENCIES
+  bundler (>= 2.0)
+  byebug
+  minidust!
+  minitest (~> 5.0)
+  rake (~> 10.0)
+
+BUNDLED WITH
+   2.6.3
