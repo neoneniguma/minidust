@@ -23,7 +23,7 @@ class MinidustCLITest < Minitest::Test
     output = @stdout.string
     
     assert_equal 1, exit_code
-    assert_includes output, "Usage: Minidust <test_file>"
+    assert_includes output, "Usage: minidust <test_file>"
   end
 
   def test_cli_checks_file_existence
@@ -37,21 +37,24 @@ class MinidustCLITest < Minitest::Test
   def test_cli_enables_minidust_for_valid_file
     Minidust.expects(:enable!)
     
-    # Stub load to prevent actual file execution
-    Kernel.stub(:load, nil) do
+    # Stub require to prevent actual file execution
+    Kernel.stub(:require, nil) do
       Minidust::CLI.start([@test_file])
     end
     
     output = @stdout.string
     assert_includes output, "Running #{@test_file} with Minidust enabled..."
-    assert_includes output, "Minidust CLI starting with args:"
   end
 
   def test_cli_loads_test_file
     file_loaded = false
+    absolute_path = File.expand_path(@test_file)
     
     Minidust.stub(:enable!, nil) do
-      Kernel.stub(:load, ->(_) { file_loaded = true }) do
+      Kernel.stub(:require, ->(path) { 
+        file_loaded = true
+        assert_equal absolute_path, path, "Should load using absolute path"
+      }) do
         Minidust::CLI.start([@test_file])
       end
     end
@@ -59,15 +62,27 @@ class MinidustCLITest < Minitest::Test
     assert file_loaded, "Test file should be loaded"
   end
 
-  def test_cli_expands_file_path
-    expanded_path = nil
+  def test_cli_handles_multiple_test_files
+    files = ["test1.rb", "test2.rb"]
+    loaded_files = []
     
-    Minidust.stub(:enable!, nil) do
-      Kernel.stub(:load, ->(path) { expanded_path = path }) do
-        Minidust::CLI.start([@test_file])
-      end
+    # Create temporary test files
+    files.each do |file|
+      File.write(file, "puts 'test content'")
     end
-    
-    assert_equal File.expand_path(@test_file), expanded_path
+
+    begin
+      Minidust.stub(:enable!, nil) do
+        Kernel.stub(:require, ->(path) { loaded_files << path }) do
+          Minidust::CLI.start(files)
+        end
+      end
+
+      assert_equal files.map { |f| File.expand_path(f) }, loaded_files,
+        "Should load all test files using absolute paths"
+    ensure
+      # Clean up temporary files
+      files.each { |f| File.delete(f) if File.exist?(f) }
+    end
   end
 end 

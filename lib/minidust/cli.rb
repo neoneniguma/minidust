@@ -1,3 +1,5 @@
+require 'byebug'
+
 module Minidust
   class CLI
     def self.start(args)
@@ -7,19 +9,23 @@ module Minidust
             exit(1)
         end
 
-        test_file = args.first
-
-        unless File.exist?(test_file)
-            puts "File notfound: #{test_file}"
-            exit(1)
-        end
-
         Minidust.enable!
 
-        puts "Running #{test_file} with Minidust enabled..."
+        args.each do |test_file|
+          absolute_path = File.expand_path(test_file)
 
+          unless File.exist?(absolute_path)
+            puts "File notfound: #{test_file}"
+            exit(1)
+          end
 
-        load File.expand_path(test_file)
+          # byebug
+
+          require absolute_path
+          puts "Running #{test_file} with Minidust enabled..."
+        end
+
+        Minitest.run
     end
   end
 end

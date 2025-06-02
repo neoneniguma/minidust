@@ -1,10 +1,31 @@
 # Minidust
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/minidust`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A lightweight, Minitest-first coverage reporter that focuses only on your code — not your gems. Minidust filters out noise, highlights which files are being tested, and gives you a clean, color-coded breakdown of test coverage right in your terminal.      
 
 ## Installation
+
+There are two ways to run minidust:
+
+### When invoking an individual test:
+
+```bash
+Minidust CLI starting with args: ["test/hello_world_test.rb"]
+Running test/hello_world_test.rb with Minidust enabled...
+Run options: --seed 6158
+
+# Running:  
+
+.
+
+Finished in 0.000497s, 2012.0731 runs/s, 2012.0731 assertions/s.
+
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+
+== Minidust Coverage Report ==
+/Users/mariumali/minidust/lib/hello_world.rb: 100.0% (2/2)
+```
+
+### Apart of each test run
 
 Add this line to your application's Gemfile:
 
