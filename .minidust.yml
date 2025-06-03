@@ -1,0 +1,18 @@
+# Minidust configuration file
+# Paths are relative to your project root
+
+# Paths to include in coverage analysis
+include_paths:
+  - lib/
+  # Add more paths as needed:
+  # - src/
+  # - app/
+
+# Paths to exclude from coverage analysis
+exclude_paths:
+  - test/
+  - spec/
+  - features/
+  # Add more paths as needed:
+  # - examples/
+  # - vendor/ 

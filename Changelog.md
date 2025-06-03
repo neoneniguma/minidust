@@ -31,3 +31,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Update README
 - Each minidust cli process now runs with its own pid. Thus giving file coverage for the file being tested and not an overall file coverage score.
+
+## [0.1.6] - 2025-06-03
+### Added
+- Update README
+- Added a default minidust.yml - you can override which paths are to be included and excluded in your coverage

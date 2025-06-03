@@ -1,6 +1,17 @@
 # Minidust
 
-A lightweight, Minitest-first coverage reporter that focuses only on your code — not your gems. Minidust filters out noise, highlights which files are being tested, and gives you a clean, color-coded breakdown of test coverage right in your terminal.      
+Minidust is a lightweight, Minitest-first coverage reporter that helps you focus on what's being tested — one file at a time. Unlike traditional coverage tools, Minidust doesn't give you an overall percentage. Instead, it reports only the coverage for the file being tested, filtering out gems and unrelated files. Perfect for keeping your tests focused and your coverage clean.
+
+
+## 🔍 What it does
+
+📄 Tracks which lines in a single source file are executed by a single test file
+
+🎯 Focuses on 1-to-1 coverage — no overall summary, no multi-file aggregation
+
+🚫 Ignores gem/library files — only shows coverage for your app's files
+
+🌈 Outputs a clean, colorized coverage report at the end of each test run
 
 ## Installation
 
@@ -60,7 +71,7 @@ For example:
 minidust test/hello_world_test.rb
 ```
 
-You’ll see a terminal output like:
+You'll see a terminal output like:
 
 ```bash
 == Minidust Coverage Report ==
@@ -73,13 +84,30 @@ or on multiple files:
 minidust test/hello_world_test.rb
 ```
 
-🔍 What it does
-Tracks which lines in your app were run during each test file
+## Configuration
 
-Displays only the relevant files (no gem/library noise)
+Minidust can be configured using a `.minidust.yml` file in your project's root directory. This allows you to specify which paths to include in or exclude from the coverage analysis.
 
-Outputs a colorized summary at the end of the test
+Create a `.minidust.yml` file in your project root:
 
+```yaml
+# Paths to include in coverage analysis
+include_paths:
+  - lib/          # Include all files under lib/
+  - src/          # You can add additional source directories
+  - app/models/   # You can be more specific with paths
+
+# Paths to exclude from coverage analysis
+exclude_paths:
+  - test/         # Exclude test files
+  - spec/         # Exclude RSpec files
+  - features/     # Exclude Cucumber files
+  - examples/     # Exclude example files
+```
+
+If no configuration file is present, Minidust will use these defaults:
+- Include: `lib/`
+- Exclude: `test/`, `spec/`, `features/`
 
 ## Development
 

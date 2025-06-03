@@ -1,6 +1,7 @@
 require "coverage"
 require "byebug"
 require "minitest"   
+require "yaml"
 
 require_relative "minidust/cli"
 
@@ -12,6 +13,22 @@ module Minidust
     blue:   "\e[34m",
     reset:  "\e[0m"
   }
+
+  # Use Dir.pwd to get the current project directory
+  ROOT_DIR = Dir.pwd
+
+  def self.load_config
+    config_file = File.join(ROOT_DIR, '.minidust.yml')
+    if File.exist?(config_file)
+      YAML.load_file(config_file)
+    else
+      # Default configuration
+      {
+        'include_paths' => ['lib/'],
+        'exclude_paths' => ['test/', 'spec/', 'features/']
+      }
+    end
+  end
 
   def self.enable!
     start
@@ -30,11 +47,9 @@ module Minidust
       end
   end
 
-  # Use Dir.pwd to get the current project directory
-  ROOT_DIR = Dir.pwd
-
   def self.report
     result = Coverage.result
+    config = load_config
 
     puts "\n== Minidust Coverage Report =="
 
@@ -47,9 +62,12 @@ module Minidust
       
       # Only show files from the project
       next unless file.start_with?(ROOT_DIR)
-
-      # Only show files in lib/ directory
-      next unless relative_path.start_with?("lib/")
+      
+      # Check against configuration
+      included = config['include_paths'].any? { |path| relative_path.start_with?(path) }
+      excluded = config['exclude_paths'].any? { |path| relative_path.start_with?(path) }
+      
+      next unless included && !excluded
 
       total = coverage.compact.size
       covered = coverage.compact.count { |c| c && c > 0 }
@@ -63,7 +81,6 @@ module Minidust
         else
           COLORS[:red]
         end
-
 
       puts "#{color}#{file}: #{percent.round(2)}% (#{covered}/#{total})#{COLORS[:reset]}"
     end
