@@ -3,9 +3,8 @@ require 'byebug'
 module Minidust
   class CLI
     def self.start(args)
-        puts("Minidust CLI starting with args: #{args.inspect}")
         if args.empty?
-            puts "Usage: Minidust <test_file>"
+            puts "Usage: minidust <test_file>"
             exit(1)
         end
 
@@ -21,11 +20,16 @@ module Minidust
 
           # byebug
 
-          require absolute_path
-          puts "Running #{test_file} with Minidust enabled..."
+          pid = Process.fork do
+            require absolute_path
+            puts "Running #{test_file} with Minidust enabled..."
+            # Minitest.run
+          end
+        
+          Process.wait(pid)
         end
 
-        Minitest.run
+        # Minitest.run
     end
   end
 end

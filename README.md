@@ -4,6 +4,22 @@ A lightweight, Minitest-first coverage reporter that focuses only on your code �
 
 ## Installation
 
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'minidust'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install minidust
+
+## Usage
+
 There are two ways to run minidust:
 
 ### When invoking an individual test:
@@ -27,38 +43,21 @@ Finished in 0.000497s, 2012.0731 runs/s, 2012.0731 assertions/s.
 
 ### Apart of each test run
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'minidust'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install minidust
-
-## Usage
-
-🔧 Usage
-1. Add minidust to your test helper
+Add minidust to your test helper
 In your test/test_helper.rb (or wherever your Minitest setup lives), require and enable Minidust:
 
 ```ruby
 require "minidust"
+Minidust.enable!
 ```
 
-Minidust.enable!
 This automatically starts coverage tracking and prints a colorized coverage report after your tests run.
 
-2. Run your tests as usual
+Run your tests using the minidust cli command
 For example:
 
 ```bash
-ruby test/hello_world_test.rb
+minidust test/hello_world_test.rb
 ```
 
 You’ll see a terminal output like:
@@ -66,6 +65,12 @@ You’ll see a terminal output like:
 ```bash
 == Minidust Coverage Report ==
 lib/hello_world.rb: 100.0% (6/6)
+```
+
+or on multiple files:
+
+```bash
+minidust test/hello_world_test.rb
 ```
 
 🔍 What it does

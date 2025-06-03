@@ -25,3 +25,9 @@ All notable changes to this project will be documented in this file.
 ## [0.1.4] - 2025-06-02
 ### Added
 - Update README
+- Add ability to run minidust cli command on multiple files - you can run `minidust <filename_1> <filename_2>`
+
+## [0.1.5] - 2025-06-02
+### Added
+- Update README
+- Each minidust cli process now runs with its own pid. Thus giving file coverage for the file being tested and not an overall file coverage score.
