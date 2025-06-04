@@ -38,6 +38,12 @@ There are two ways to run minidust:
 ### When invoking an individual test:
 
 ```bash
+minidust test/hello_world_test.rb test/another_test.rb
+```
+
+Output will look like the following:
+
+```bash
 Minidust CLI starting with args: ["test/hello_world_test.rb"]
 Running test/hello_world_test.rb with Minidust enabled...
 Run options: --seed 6158
