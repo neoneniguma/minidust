@@ -18,8 +18,6 @@ module Minidust
             exit(1)
           end
 
-          # byebug
-
           pid = Process.fork do
             require absolute_path
             puts "Running #{test_file} with Minidust enabled..."

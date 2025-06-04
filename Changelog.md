@@ -36,3 +36,4 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Update README
 - Added a default minidust.yml - you can override which paths are to be included and excluded in your coverage
+- Added unused methods to minidust coverage report
