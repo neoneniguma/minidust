@@ -43,3 +43,4 @@ All notable changes to this project will be documented in this file.
 ## [0.1.7] - 2025-06-04
 ### Added
 - Update README
+- Refactor line and method coverage reporter to separate classes
